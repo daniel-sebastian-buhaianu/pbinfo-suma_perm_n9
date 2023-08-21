@@ -6,35 +6,51 @@
 
 int main()
 {
-	char s[MAX_CIFRE + 1], copie_s[MAX_CIFRE + 1], ultima_cifra, aux;
-	unsigned short lungime, pozitie;
-	unsigned suma = 0;
+	char s[MAX_CIFRE + 2], t[MAX_CIFRE + 1], copie_t[MAX_CIFRE + 1], s_e_negativ, ultima_cifra, aux;
+	int suma = 0;
+	unsigned short i, lungime, pozitie;
 
 	scanf("%s", &s);
 	
 	lungime = strlen(s);
+
+	s_e_negativ = s[0] == '-' ? 1 : 0;
 	
+	if (s_e_negativ) {
+		for (i = 1; i < lungime; i++) t[i - 1] = s[i];
+
+		t[lungime - 1] = '\0';
+	}
+	else strcpy(t, s);
+	
+	lungime = strlen(t);
+
 	if (lungime == 1) printf("%s", s);
 	else {
-		strcpy(copie_s, s);
-		do {
-			ultima_cifra = s[lungime - 1];
-			pozitie = lungime - 1;
-			while (pozitie > 0) {
-				suma += atoi(s);
+		strcpy(copie_t, t);
+		
+		suma = 0;
 
-				aux = s[pozitie];
-				s[pozitie] = s[pozitie - 1];
-				s[pozitie - 1] = aux;
+		do {
+			ultima_cifra = t[lungime - 1];
+			
+			pozitie = lungime - 1;
+			
+			while (pozitie > 0) {
+				suma += atoi(t);
+
+				aux = t[pozitie];
+				t[pozitie] = t[pozitie - 1];
+				t[pozitie - 1] = aux;
 				
 				pozitie--;
 			}
-		} while (strcmp(copie_s, s) != 0);
-	}
-
-	printf("%u", suma);	
+		} while (strcmp(copie_t, t) != 0);
 		
+		suma = s_e_negativ ? suma * (-1) : suma;
+
+		printf("%d", suma);
+	}
 	return 0;
 }
-
-// scor solutie: 40/100
+// scor: 60/100
