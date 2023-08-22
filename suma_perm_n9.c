@@ -1,35 +1,33 @@
 #include <stdio.h>
 
-unsigned factorial(unsigned short n);
-
 int main()
 {
-	unsigned n, nr = 0;
-	unsigned short nrcif = 0, sumacif = 0;
-	
-	scanf("%u", &n);
+    unsigned short nrcif = 0, sumacif = 0;
+    unsigned fact = 1;
+    unsigned long long S = 0, nr = 0, n;
+    
+    scanf("%llu", &n);
+    
+    if (n == 0) nrcif = 1;
 
-	while (n > 0) {
-	 	nr = nr * 10 + 1;
-	 	
-	 	nrcif++;
+    while (n > 0) {
+        nr = nr * 10 + 1;
+        
+        nrcif++;
 
-	 	sumacif += n % 10;
+        fact *= nrcif;
 
-		n /= 10;
-	}
+        sumacif += n % 10;
 
-	printf("%u", nr * factorial(nrcif - 1) * sumacif);
+        n /= 10;
+    }
+    
+    fact /= nrcif;
+    
+    S = nr * fact * sumacif;
 
-	return 0;
+    printf("%llu", S);
+
+    return 0;
 }
-
-unsigned factorial(unsigned short n) {
-	if (n == 0) return 1;
-
-	if (n == 1) return 1;
-
-	return n * factorial(n - 1);
-}
-
-// scor: 60/100
+// scor: 100/100
